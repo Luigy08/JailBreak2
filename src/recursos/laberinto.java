@@ -7,6 +7,8 @@ package recursos;
 
 import Estructuras.Arbol;
 import Estructuras.Nodo;
+import Estructuras.NodoRecorrido;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -170,9 +172,9 @@ public class laberinto {
                 if (matriz[datos.getFila()][datos.getColumna() - 1].isVisitado()) {
                     continue;
                 } else {
-                    actual.setIzquierdo(matriz[datos.getFila()][datos.getColumna() - 1]);
+                    actual.setIzquierda(matriz[datos.getFila()][datos.getColumna() - 1]);
                     Nodo anterior = actual;
-                    actual = actual.getIzquierdo();
+                    actual = actual.getIzquierda();
                     actual.setAnterior(anterior);
                     actual.setVisitado(true);
                     visitados++;
@@ -192,9 +194,9 @@ public class laberinto {
                 if (matriz[datos.getFila()][datos.getColumna() + 1].isVisitado()) {
                     continue;
                 } else {
-                    actual.setDerecho(matriz[datos.getFila()][datos.getColumna() + 1]);
+                    actual.setDerecha(matriz[datos.getFila()][datos.getColumna() + 1]);
                     Nodo anterior = actual;
-                    actual = actual.getDerecho();
+                    actual = actual.getDerecha();
                     actual.setAnterior(anterior);
                     actual.setVisitado(true);
                     visitados++;
@@ -332,6 +334,68 @@ public class laberinto {
             }
         }
         return datos;
+    }
+    public void analisis(){
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (!matriz[i][j].getValor().equals("#")||!matriz[i][j].getValor().equals(" ")) {
+                    matriz[i][j].setVisitado(false);
+                }
+            }
+        }
+        Nodo actual=arbol.getRaiz();
+        NodoActual datos;
+        ArrayList<ArrayList> recorridos=new ArrayList();
+        ArrayList<NodoActual> recorrido=new ArrayList();
+        boolean encontrado=true;
+        
+        while(encontrado){
+            datos=Datos(actual);
+            actual.setVisitado(true);
+            if (!actual.getArriba().isVisitado()) {
+                actual=actual.getArriba();
+                recorrido.add(datos);
+            }else if (!actual.getDerecha().isVisitado()) {
+                actual=actual.getDerecha();
+                recorrido.add(datos);
+            }else if (!actual.getAbajo().isVisitado()) {
+                actual=actual.getAbajo();
+                recorrido.add(datos);
+            }else if (!actual.getIzquierda().isVisitado()) {
+                actual=actual.getIzquierda();
+                recorrido.add(datos);
+            }
+            if (actual.getArriba().isVisitado()&&actual.getAbajo().isVisitado()&&actual.getDerecha().isVisitado()&&actual.getIzquierda().isVisitado()) {
+                actual=actual.getAnterior();
+                recorridos.add(recorrido);
+                recorrido.clear();
+            }
+            if (actual.getValor().equals("X")) {
+                recorrido.add(datos);
+                encontrado=false;
+            }
+            
+        }
+        ArrayList<ArrayList> soluciones=new ArrayList();
+        for (int i = 0; i < recorridos.size(); i++) {
+            for (int j = 0; j < recorridos.get(i).size(); j++) {
+                NodoActual dato=((NodoActual)((ArrayList)recorridos.get(i).get(j)).get(((ArrayList)recorridos.get(i).get(j)).size()-1));
+                Nodo tem=matriz[dato.getFila()][dato.getColumna()];
+                if (tem.getValor().equals("")) {
+                    soluciones.add((ArrayList)recorridos.get(i).get(j));
+                }
+            }
+        }
+        ArrayList <ArrayList>solucion=new ArrayList(); 
+        int tem=0;
+        for (int i = 0; i < soluciones.size(); i++) {
+            if (soluciones.get(i).size()>tem) {
+                tem=i;
+            }
+        }
+        for (int i = 0; i < solucion.get(tem).size(); i++) {
+            
+        }
     }
 
 }

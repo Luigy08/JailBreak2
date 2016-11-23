@@ -13,8 +13,8 @@ public class Nodo {
     private String valor;
     private Nodo Arriba;
     private Nodo Abajo;
-    private Nodo Izquierdo;
-    private Nodo Derecho;
+    private Nodo Izquierda;
+    private Nodo Derecha;
     private Nodo anterior;
 
     public String getValor() {
@@ -29,8 +29,8 @@ public class Nodo {
         visitado=false;
         Arriba=null;
         Abajo=null;
-        Izquierdo=null;
-        Derecho=null;
+        Izquierda=null;
+        Derecha=null;
         anterior=null;
         valor=" ";
     }
@@ -59,20 +59,20 @@ public class Nodo {
         this.Abajo = Abajo;
     }
 
-    public Nodo getIzquierdo() {
-        return Izquierdo;
+    public Nodo getIzquierda() {
+        return Izquierda;
     }
 
-    public void setIzquierdo(Nodo Izquierdo) {
-        this.Izquierdo = Izquierdo;
+    public void setIzquierda(Nodo Izquierdo) {
+        this.Izquierda = Izquierdo;
     }
 
-    public Nodo getDerecho() {
-        return Derecho;
+    public Nodo getDerecha() {
+        return Derecha;
     }
 
-    public void setDerecho(Nodo Derecho) {
-        this.Derecho = Derecho;
+    public void setDerecha(Nodo Derecho) {
+        this.Derecha = Derecho;
     }
 
     public Nodo getAnterior() {
