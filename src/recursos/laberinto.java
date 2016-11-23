@@ -83,89 +83,83 @@ public class laberinto {
                 if (entradaSalida < 2) {
                     actual.setValor("O");
                     entradaSalida++;
-                }else if(entradaSalida==2){
+                } else if (entradaSalida == 2) {
                     actual.setValor("X");
                     arbol.setUltimaHoja(matriz[datos.getFila()][datos.getColumna()]);
-                    entradaSalida=3;
+                    entradaSalida = 3;
                 }
-                if (entradaSalida ==3) {
+                if (entradaSalida == 3) {
                     if (actual.getValor().equals(" ")) {
                         actual.setValor("#");
-                        
+
                     }
                 }
             } else {
                 int tem = rnd.nextInt(2);
 
-                if (entradaSalida == 3&&!actual.getValor().equals("#")&&!actual.getValor().equals("-")&&!actual.getValor().equals("A")) {
+                if (entradaSalida == 3 && !actual.getValor().equals("#") && !actual.getValor().equals("-") && !actual.getValor().equals("A")) {
 
                     if (tem == 0) {
                         actual.setValor("#");
                     } else {
                         actual.setValor("-");
                     }
-                    
-                } else if(!actual.getValor().equals("#")&&!actual.getValor().equals("-")&&!actual.getValor().equals("A")){
+
+                } else if (!actual.getValor().equals("#") && !actual.getValor().equals("-") && !actual.getValor().equals("A")) {
                     actual.setValor("A");
                 }
 
             }
-            /*for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    System.out.print("["+matriz[i][j].getValor()+"]");
-                }
-                System.out.println("");
-            }*/
             switch (datos.getTipoNodo()) {
-                case "nodo00":
+                case "ezquina1":
                     if (matriz[datos.getFila()][datos.getColumna() + 1].isVisitado() && matriz[datos.getFila() + 1][datos.getColumna()].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodo0n":
+                case "ezquina2":
                     if (matriz[datos.getFila()][datos.getColumna() - 1].isVisitado() && matriz[datos.getFila() + 1][datos.getColumna()].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodon0":
+                case "ezquina3":
                     if (matriz[datos.getFila() - 1][datos.getColumna()].isVisitado() && matriz[datos.getFila()][datos.getColumna() + 1].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodonn":
+                case "ezquina4":
                     if (matriz[datos.getFila()][datos.getColumna() - 1].isVisitado() && matriz[datos.getFila() - 1][datos.getColumna()].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodo0j":
+                case "HSuperior":
                     if (matriz[datos.getFila()][datos.getColumna() - 1].isVisitado() && matriz[datos.getFila()][datos.getColumna() + 1].isVisitado() && matriz[datos.getFila() + 1][datos.getColumna()].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodoi0":
+                case "VIzquierda":
                     if (matriz[datos.getFila() - 1][datos.getColumna()].isVisitado() && matriz[datos.getFila()][datos.getColumna() + 1].isVisitado() && matriz[datos.getFila() + 1][datos.getColumna()].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodonj":
+                case "HInferior":
                     if (matriz[datos.getFila()][datos.getColumna() - 1].isVisitado() && matriz[datos.getFila() - 1][datos.getColumna()].isVisitado() && matriz[datos.getFila()][datos.getColumna() + 1].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodoin":
+                case "VDerecha":
                     if (matriz[datos.getFila()][datos.getColumna() - 1].isVisitado() && matriz[datos.getFila() - 1][datos.getColumna()].isVisitado() && matriz[datos.getFila() + 1][datos.getColumna()].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
                     }
                     break;
-                case "nodonormal":
+                case "Centro":
                     if (matriz[datos.getFila()][datos.getColumna() - 1].isVisitado() && matriz[datos.getFila() - 1][datos.getColumna()].isVisitado() && matriz[datos.getFila() + 1][datos.getColumna()].isVisitado() && matriz[datos.getFila()][datos.getColumna() + 1].isVisitado()) {
                         actual = actual.getAnterior();
                         continue;
@@ -225,7 +219,7 @@ public class laberinto {
         Random rnd = new Random();
         NodoActual datos = new NodoActual();
         if (actual == matriz[0][0]) {
-            datos.setTipoNodo("nodo00");
+            datos.setTipoNodo("ezquina1");
             datos.setSiguienteNodo(rnd.nextInt(2) + 2);
             datos.setFila(0);
             datos.setColumna(0);
@@ -238,19 +232,19 @@ public class laberinto {
             if (num == 1) {
                 datos.setSiguienteNodo(3);
             }
-            datos.setTipoNodo("nodo0n");
+            datos.setTipoNodo("ezquina2");
             datos.setFila(0);
             datos.setColumna(size - 1);
             return datos;
         } else if (actual == matriz[size - 1][0]) {
             datos.setSiguienteNodo(rnd.nextInt(2) + 1);
-            datos.setTipoNodo("nodon0");
+            datos.setTipoNodo("ezquina3");
             datos.setFila(size - 1);
             datos.setColumna(0);
             return datos;
         } else if (actual == matriz[size - 1][size - 1]) {
             datos.setSiguienteNodo(rnd.nextInt(2));
-            datos.setTipoNodo("nodonn");
+            datos.setTipoNodo("ezquina4");
             datos.setFila(size - 1);
             datos.setColumna(size - 1);
             return datos;
@@ -258,50 +252,79 @@ public class laberinto {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++) {
                 if (actual == matriz[0][j]) {
-                    int num = rnd.nextInt(3);
-                    if (num == 0) {
-                        datos.setSiguienteNodo(0);
+                    int num = rnd.nextInt(20);
+                    if (num < 2) {
+                        if (num == 0) {
+                            datos.setSiguienteNodo(0);
+                        }
+                        if (num == 1) {
+                            datos.setSiguienteNodo(2);
+                        }
                     }
-                    if (num == 1) {
-                        datos.setSiguienteNodo(2);
-                    }
-                    if (num == 2) {
+
+                    if (num >=2) {
                         datos.setSiguienteNodo(3);
                     }
-                    datos.setTipoNodo("nodo0j");
+
+                    datos.setTipoNodo("HSuperior");
                     datos.setFila(0);
                     datos.setColumna(j);
                     return datos;
                 } else if (actual == matriz[i][0]) {
-                    datos.setSiguienteNodo(rnd.nextInt(3) + 1);
-                    datos.setTipoNodo("nodoi0");
+                    int num = rnd.nextInt(20);
+                    if (num < 2) {
+                        if (num == 0) {
+                            datos.setSiguienteNodo(1);
+                        }
+                        if (num == 1) {
+                            datos.setSiguienteNodo(3);
+                        }
+                    }
+                    if (num >=2) {
+                        datos.setSiguienteNodo(2);
+                    }
+                    datos.setTipoNodo("VIzquierda");
                     datos.setFila(i);
                     datos.setColumna(0);
                     return datos;
                 } else if (actual == matriz[i][size - 1]) {
-                    int num = rnd.nextInt(3);
-                    if (num == 0) {
-                        datos.setSiguienteNodo(1);
+                    int num = rnd.nextInt(20);
+                    if (num < 2) {
+                        if (num == 0) {
+                            datos.setSiguienteNodo(1);
+                        }
+                        if (num == 1) {
+                            datos.setSiguienteNodo(3);
+                        }
                     }
-                    if (num == 1) {
+                    if (num >=2) {
                         datos.setSiguienteNodo(0);
                     }
-                    if (num == 2) {
-                        datos.setSiguienteNodo(3);
-                    }
-                    datos.setTipoNodo("nodoin");
+                    datos.setTipoNodo("VDerecha");
                     datos.setFila(i);
                     datos.setColumna(size - 1);
                     return datos;
                 } else if (actual == matriz[size - 1][j]) {
-                    datos.setSiguienteNodo(rnd.nextInt(3));
-                    datos.setTipoNodo("nodonj");
+                    int num = rnd.nextInt(20);
+                    if (num < 2) {
+                        if (num == 0) {
+                            datos.setSiguienteNodo(0);
+                        }
+                        if (num == 1) {
+                            datos.setSiguienteNodo(2);
+                        }
+                    }
+
+                    if (num >=2) {
+                        datos.setSiguienteNodo(1);
+                    }
+                    datos.setTipoNodo("HInferior");
                     datos.setFila(size - 1);
                     datos.setColumna(j);
                     return datos;
                 } else if (actual == matriz[i][j]) {
                     datos.setSiguienteNodo(rnd.nextInt(4));
-                    datos.setTipoNodo("nodonormal");
+                    datos.setTipoNodo("Centro");
                     datos.setFila(i);
                     datos.setColumna(j);
                     return datos;
